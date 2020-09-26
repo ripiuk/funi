@@ -6,4 +6,5 @@ from funi.providers._base import AbstractProvider
 PROVIDERS: typ.Tuple[typ.Type[AbstractProvider], ...] = (
     banks.Bank1,
     banks.Bank2,
+    banks.Bank3,
 )

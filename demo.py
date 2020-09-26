@@ -6,4 +6,9 @@ if __name__ == '__main__':
         schema=funi.SCHEMAS.CSV_V1,
         output_filename='res.csv',
     )
-    unifier.unify('data/bank1.csv', 'data/bank2.csv')
+
+    unifier.unify(
+        'data/bank1.csv',
+        'data/bank2.csv',
+        'data/bank3.csv',
+    )
