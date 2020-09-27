@@ -1,0 +1,11 @@
+[run]
+omit =
+    funi/__main__.py
+    funi/__about__.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __str__
+    def __repr__
+    if __name__ == .__main__.:

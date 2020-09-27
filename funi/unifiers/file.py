@@ -3,10 +3,10 @@ import csv
 from funi.unifiers._base import AbstractFileUnifier
 
 
-__all__ = ('CSVUnifier', )
-
-
 class CSVUnifier(AbstractFileUnifier):
+    """Unify providers data and store it into a CSV file"""
+
+    file_extension = '.csv'
 
     def _unify_files_data(self, *files: str) -> None:
         with open(self.output_filename, 'w+') as res_f:

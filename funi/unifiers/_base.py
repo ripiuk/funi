@@ -14,6 +14,8 @@ from funi.providers import PROVIDERS, AbstractProvider
 
 
 class AbstractUnifier(ABC):
+    """Contains basic unifier logic"""
+
     __slots__ = ('schema', )
 
     def __init__(self, schema: SCHEMAS):
@@ -86,21 +88,28 @@ class AbstractUnifier(ABC):
     def unify(self, *files: str) -> None:
         """Unify all the data from files due to the needed scheme"""
         for file in map(Path, files):
-            if not file.is_file():
-                raise ValueError(f'Got incorrect file type: {file.absolute()}')
             if not file.exists():
                 raise ValueError(f'Can not find the file: {file.absolute()}')
+            if not file.is_file():
+                raise ValueError(f'Got incorrect file type: {file.absolute()}')
         self._unify_files_data(*files)
 
 
 class AbstractFileUnifier(AbstractUnifier, ABC):
+    """Contains needed tools to unify provider data into a file.
+
+    :cvar file_extension: output file extension.
+    """
+
     __slots__ = ('output_filename', )
+
+    file_extension: str = NotImplementedError
 
     def __init__(self, schema: SCHEMAS, output_filename: str = None):
         super().__init__(schema=schema)
         self.output_filename = AbstractFileUnifier._generate_filename(
             filename=output_filename,
-            suffix='.csv',
+            suffix=self.file_extension,
         )
 
     @staticmethod
@@ -108,9 +117,10 @@ class AbstractFileUnifier(AbstractUnifier, ABC):
         """Generate new file name or validate existing one
 
         :param filename: file name
-        :param suffix: file suffix (extension)
+        :param suffix: file extension
         :return: generated file name
         """
+        suffix = suffix or '.txt'
         suffix = suffix.lstrip('.') if suffix.startswith('.') else suffix
         filename = filename.rsplit('.', 1)[0] \
             if filename \

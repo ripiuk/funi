@@ -1,2 +1,1 @@
-from funi.unifiers.file import *
-from funi.unifiers.database import *
+from funi.unifiers.file import CSVUnifier  # noqa: F401

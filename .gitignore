@@ -7,3 +7,7 @@ __pycache__/
 
 # virtualenv
 venv/
+
+# coverage
+.coverage
+.cov_html
